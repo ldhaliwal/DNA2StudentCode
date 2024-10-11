@@ -13,25 +13,37 @@ import java.util.ArrayList;
  */
 
 public class DNA {
-
-    /**
-     * TODO: Complete this function, STRCount(), to return longest consecutive run of STR in sequence.
-     */
     public static int STRCount(String sequence, String STR) {
         char startSTR = STR.charAt(0);
         int strLeng = STR.length();
 
-        ArrayList<Integer> strInstances = new ArrayList<Integer>();
+        ArrayList<Integer> strInstances = new ArrayList<>();
 
+        // Iterate through the sequence
         for (int i = 0; i < sequence.length(); i++){
+            // Check that we are starting with the correct letter and that we would index out of bounds
             if(sequence.charAt(i) == startSTR && (i + strLeng) <= sequence.length()){
                 String currentSTR = sequence.substring(i, i + strLeng);
+                // Every time an instance of the STR shows up, save its index and move i past the instance
                 if(currentSTR.equals(STR)){
                     strInstances.add(i);
                     i += strLeng - 1;
                 }
             }
         }
+
+//        // Iterate through the sequence
+//        for (int i = 0; i < sequence.length(); i++){
+//            // Check that we are starting with the correct letter and that we would index out of bounds
+//            if(sequence.charAt(i) == startSTR && (i + strLeng) <= sequence.length()){
+//                String currentSTR = sequence.substring(i, i + strLeng);
+//                // Every time an instance of the STR shows up, save its index and move i past the instance
+//                if(currentSTR.equals(STR)){
+//                    strInstances.add(i);
+//                    i += strLeng - 1;
+//                }
+//            }
+//        }
 
         int longestRepeated = 0;
         int currentRepeated = 1;
