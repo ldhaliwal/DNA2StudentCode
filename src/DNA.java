@@ -28,35 +28,26 @@ public class DNA {
                 String currentSTR = sequence.substring(i, i + strLeng);
                 if(currentSTR.equals(STR)){
                     strInstances.add(i);
+                    i += strLeng - 1;
                 }
             }
         }
-
-//        int longestRepeated = 0;
-//
-//        for(int i = 0; i < strInstances.size() -1; i++){
-//            if(strInstances.get(i) == (strInstances.get(i + 1) - strLeng)){
-//                longestRepeated += 1;
-//            }
-//            //else if ((strInstances.get(i + 1) > (strInstances.get(i) + strLeng)){
-//                //int temp = 1;
-//            //}
-        //}
 
         int longestRepeated = 0;
         int currentRepeated = 1;
 
         // Iterate through the list of STR instances
-        for (int i = 0; i < strInstances.size() - 1; i++) {
-            // If the next index is strLength ahead of the current one, increment currentRepeated
-            if ((strInstances.get(i) + strLeng) == strInstances.get(i + 1)) {
-                currentRepeated++;
+        for (int i = 0; i < strInstances.size(); i++) {
+            if(i != strInstances.size() - 1){
+                // If the next index is strLength ahead of the current one, increment currentRepeated
+                if ((strInstances.get(i) + strLeng) == strInstances.get(i + 1)) {
+                    currentRepeated++;
+                }
+                else {
+                    // If not, reset the currentRepeated count
+                    currentRepeated = 1;
+                }
             }
-            else {
-                // If not, reset the currentRepeated count
-                currentRepeated = 1;
-            }
-
             // Update longestRepeated if we found a new maximum
             if (currentRepeated > longestRepeated) {
                 longestRepeated = currentRepeated;
