@@ -32,19 +32,38 @@ public class DNA {
             }
         }
 
-        int longestRepeated = 1;
-
-        for(int i = 0; i < strInstances.size() -1; i++){
-            if(strInstances.get(i) == (strInstances.get(i + 1) - strLeng)){
-                longestRepeated += 1;
-            }
-//            else if ((strInstances.get(i + 1) > (strInstances.get(i) + strLeng)){
-//                int temp = 1;
+//        int longestRepeated = 0;
+//
+//        for(int i = 0; i < strInstances.size() -1; i++){
+//            if(strInstances.get(i) == (strInstances.get(i + 1) - strLeng)){
+//                longestRepeated += 1;
 //            }
+//            //else if ((strInstances.get(i + 1) > (strInstances.get(i) + strLeng)){
+//                //int temp = 1;
+//            //}
+        //}
+
+        int longestRepeated = 0;
+        int currentRepeated = 1;
+
+        // Iterate through the list of STR instances
+        for (int i = 0; i < strInstances.size() - 1; i++) {
+            // If the next index is strLength ahead of the current one, increment currentRepeated
+            if ((strInstances.get(i) + strLeng) == strInstances.get(i + 1)) {
+                currentRepeated++;
+            }
+            else {
+                // If not, reset the currentRepeated count
+                currentRepeated = 1;
+            }
+
+            // Update longestRepeated if we found a new maximum
+            if (currentRepeated > longestRepeated) {
+                longestRepeated = currentRepeated;
+            }
         }
 
-        System.out.println(strInstances);
-
+        // Return the result; if no repeats were found, longestRepeated remains 0, so we return the actual count
         return longestRepeated;
     }
 }
