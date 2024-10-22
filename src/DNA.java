@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * DNA
  * <p>
@@ -13,73 +11,38 @@ import java.util.ArrayList;
  */
 
 public class DNA {
-    radix = 256;
-    prime = 2147483647L;
+    static int radix = 4;
+    static long prime = 2147483647L;
+    static int longestRun = 0;
+    static int strLength;
+    static long strHash;
 
     public static int STRCount(String sequence, String STR) {
-        char startSTR = STR.charAt(0);
-        int strLength = STR.length();
-        int longestRun = 0;
+        strLength = STR.length();
+        strHash = hash(STR);
 
-        int strHash = 0;
-        int windowHash = 0;
-
-        // Compute hash of STR and first window of sequence
-        for (int i = 0; i < strLength; i++) {
-            strHash = (int) ((radix * strHash + STR.charAt(i)) % prime);
-            windowHash = (int) ((radix * windowHash + sequence.charAt(i)) % prime);
-        }
-
-        //Recursive
-
-
-        ArrayList<Integer> strInstances = new ArrayList<>();
-
+        int runCount = 0;
 
         // Iterate through the sequence
         for (int i = 0; i < sequence.length(); i++){
-            // Check that we are starting with the correct letter and that we would index out of bounds
-            if(sequence.charAt(i) == startSTR && (i + strLength) <= sequence.length()){
-                String currentSTR = sequence.substring(i, i + strLength);
-                // Every time an instance of the STR shows up, save its index and move i past the instance
-                if(currentSTR.equals(STR)){
-                    strInstances.add(i);
-                    i += strLength - 1;
-                }
+            if(hash(STR) == hash(sequence, i)) {
+                runCount = consecutiveMatches(sequence, i);
             }
+
         }
 
-        int longestRepeated = 0;
-        int currentRepeated = 1;
 
-        // Iterate through the list of STR instances
-        for (int i = 0; i < strInstances.size(); i++) {
-            if(i != strInstances.size() - 1){
-                // If the next index is strLength ahead of the current one, increment currentRepeated
-                if ((strInstances.get(i) + strLength) == strInstances.get(i + 1)) {
-                    currentRepeated++;
-                }
-                else {
-                    // If not, reset the currentRepeated count
-                    currentRepeated = 1;
-                }
-            }
-            // Update longestRepeated if we found a new maximum
-            if (currentRepeated > longestRepeated) {
-                longestRepeated = currentRepeated;
-            }
-        }
+        return consecutiveMatches(strHash, windowHash, 0);
 
-        // Return the result; if no repeats were found, longestRepeated remains 0, so we return the actual count
-        return longestRepeated;
     }
 
 
-    public int recursive(String STR, String window, int count, int longestRun){
-        if(hash(STR) == hash(window)){
+    public static int consecutiveMatches(String sequence, int start){
+        if(has == windowHash){
             count++;
-            // shift window by 3
-            return recursive(STR, window, count, longestRun);
+            // shift by 3
+            windowHash = hash()
+            return consecutiveMatches(STRHash, windowHash, count);
         }
         else{
             // shift window by 1
@@ -87,13 +50,27 @@ public class DNA {
                 longestRun = count;
             }
             count = 0;
-            recursive(STR, window, count, longestRun);
+            consecutiveMatches(STR, window, count);
         }
 
         return 0;
     }
 
-    public long hash(String text){
+    public static long hash(String text) {
+        return hash(text, 0);
+    }
+
+    public static long hash(String text, int startIndex){
+        int length = text.length();
+        long hash = 0;
+
+        for(int i = startIndex; i < startIndex + length; i++) {
+            hash = (hash * radix + text.charAt(i)) % prime;
+        }
+        return hash;
+    }
+
+    public static long shiftHash(String text, int startIndex){
         int length = text.length();
         long hash = 0;
 
@@ -102,4 +79,5 @@ public class DNA {
         }
         return hash;
     }
+
 }
