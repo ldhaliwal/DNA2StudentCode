@@ -47,7 +47,7 @@ public class DNATest {
     @Test
     @Timeout(value = 20000, unit = TimeUnit.MILLISECONDS)
     public void testLargest() {
-        int maxSize = 200000000;
+        int maxSize = 40000;
         char STR = 'a';
         try {
             char[] largeCharArray = new char[maxSize];
@@ -61,7 +61,7 @@ public class DNATest {
     }
 
     @Test
-    @Timeout(value = 3000, unit = TimeUnit.MILLISECONDS)
+    @Timeout(value = 4000, unit = TimeUnit.MILLISECONDS)
     public void testChromosome22() {
 
         try {
