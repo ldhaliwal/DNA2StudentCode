@@ -26,34 +26,25 @@ public class DNA {
         // Iterate through the sequence
         for (int i = 0; i < sequence.length(); i++){
             if(hash(STR) == hash(sequence, i)) {
-                runCount = consecutiveMatches(sequence, i);
+                runCount = consecutiveMatches(sequence, i) + 1;
+                if (runCount > longestRun){
+                    longestRun = runCount;
+                }
             }
-
         }
 
-
-        return consecutiveMatches(strHash, windowHash, 0);
-
+        return longestRun;
     }
 
 
     public static int consecutiveMatches(String sequence, int start){
-        if(has == windowHash){
-            count++;
-            // shift by 3
-            windowHash = hash()
-            return consecutiveMatches(STRHash, windowHash, count);
+        if(strHash != hash(sequence, start)){
+            return 0;
         }
-        else{
-            // shift window by 1
-            if(count > longestRun){
-                longestRun = count;
-            }
-            count = 0;
-            consecutiveMatches(STR, window, count);
+        else if (start <= (sequence.length() - strLength)) {
+            return 1 + consecutiveMatches(sequence, start+strLength);
         }
-
-        return 0;
+        return 1;
     }
 
     public static long hash(String text) {
