@@ -26,29 +26,35 @@ public class DNA {
 
         // Iterate through the sequence
         for (int i = 0; i < sequence.length()-strLength; i++){
+            // Check if a match is found
             if(hash(STR) == hash(sequence, i)) {
+                // Call recursive method
                 runCount = consecutiveMatches(sequence, i);
+                // Updates longestRun if a new longest run has been found
                 if (runCount > longestRun){
                     longestRun = runCount;
                 }
             }
         }
-
         return longestRun;
     }
 
-
+    // Recursive method
+    // Reminder: for the testLargest, the recursive solution creates a StackOverflow error
     public static int consecutiveMatches(String sequence, int start){
+        // Checks if there is not a match or we are at the end of the sequence
         if(start > (sequence.length() - strLength) || strHash != hash(sequence, start)){
             return 0;
         }
         return 1 + consecutiveMatches(sequence, start+strLength);
     }
 
+    // Overwritten hash method for code fluency
     public static long hash(String text) {
         return hash(text, 0);
     }
 
+    // Returns the hashed value of the string beginning at that index
     public static long hash(String text, int startIndex){
         long hash = 0;
 
@@ -57,15 +63,4 @@ public class DNA {
         }
         return hash;
     }
-
-    public static long shiftHash(String text, int startIndex){
-        int length = text.length();
-        long hash = 0;
-
-        for(int i = 0; i < length; i++) {
-            hash = (hash * RADIX + text.charAt(i)) % PRIME;
-        }
-        return hash;
-    }
-
 }
